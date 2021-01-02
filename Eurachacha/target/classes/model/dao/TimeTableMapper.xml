@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.dao.TimeTableMapper">
+	<cache />
+	
+
+	<select id="selectMovieInfo" resultType="Movie"> 
+		SELECT distinct title, theater_name
+		FROM movie m JOIN movie_time mt USING (movie_id) JOIN theater t USING (theater_id)
+		order by title
+    </select>      
+		
+	<resultMap id="movieResultMap" type="Movie">
+		<id column="movie_id" property="movie_id"/>
+		<result column="title" property="title" />
+		<result column="theater_name" property="theater_name" />
+		<result column="genre"  property="genre" />
+		<result column="release_date" property="release_date" />
+		<collection property="timeList" ofType="Time">
+			<id column="time_id" property="time_id" />
+			<result column="time" property="time" />
+			<result column="num" property="num" />
+		</collection>
+	</resultMap>
+ 
+	<select id="selectMovieWithTimes" parameterType="Movie" resultMap="movieResultMap"> 
+		SELECT distinct title, movie_id, theater_name, genre, release_date, time, num, time_id
+		FROM movie JOIN movie_time USING (movie_id) JOIN theater USING (theater_id)
+		WHERE title=#{title} and theater_name=#{theater_name}
+		ORDER BY num
+	</select>
+	
+	<select id="countEnable" resultType="int">
+		SELECT 25-count(*) as enable 
+        FROM seat 
+        WHERE time_id=#{id}
+    </select>
+</mapper>
