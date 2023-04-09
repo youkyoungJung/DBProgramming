@@ -13,8 +13,9 @@
    * 포인트 룰렛(적립)
   
 * ## 구현 기술 ##
-   * JSP SERVLET
-   * TOMCAT
+   * JSP SERVLET / TOMCAT
    * JDBC
    * ORACLE 12C
    * HTML/CSS
+   * BOOTSTRAP
+   * MYBATIS
