@@ -21,10 +21,11 @@
    * MYBATIS
 
 * ### 조인 쿼리 ###
-* ```java
-*   //영화에 맞는 시간들을 구하는 쿼리
+
+   ```java
+   //영화에 맞는 시간들을 구하는 쿼리
        String query = "SELECT time, theater_name, num, time_id, title "
              + "FROM movie m JOIN movie_time mt USING (movie_id) JOIN theater t USING (theater_id) "
              + "WHERE movie_id = ? "
              + "ORDER BY num";
- ```
+   ```
